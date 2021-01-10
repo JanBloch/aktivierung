@@ -4,6 +4,8 @@ const path = require('path');
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const axios = require('axios');
+const log = require('./log');
+
 app.use(express.static('./build'));
 
 const lobby = [];
@@ -116,5 +118,5 @@ io.on("connection", (socket) => {
 })
 
 http.listen(3000, () => {
-    console.log('listening on *:3000');
+    log('listening on *:3000');
 });
