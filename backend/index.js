@@ -44,7 +44,7 @@ io.on("connection", (socket) => {
             admin = socket.id;
             socket.emit("admin")
         }
-        console.log(socket.id);
+        log("connected! socket id:", socket.id);
         socket.on("start", () => {
             hasStarted = true;
             initial = lobby.length;
@@ -54,8 +54,8 @@ io.on("connection", (socket) => {
         });
         socket.on("answer", (i) => {
             answered++;
-            console.log(answered);
-            console.log(lobby.length);
+            log("answered", answered);
+            log("lobby.length", lobby.length);
             if (lobby.length == 1) {
                 socket.emit("won");
                 socket.disconnect();
@@ -104,7 +104,7 @@ io.on("connection", (socket) => {
             if (index >= 0) {
                 lobby.splice(index, 1);
                 if (admin == socket.id) admin = null;
-                console.log(socket.id + " disconnected");
+                log(socket.id, "disconnected");
             }
             if (lobby.length == 0) {
                 hasStarted = false;
@@ -112,7 +112,7 @@ io.on("connection", (socket) => {
         })
     } else {
         socket.emit("refused");
-        console.log(socket.id + " has been refused")
+        log(socket.id, "has been refused")
         socket.disconnect();
     }
 })
